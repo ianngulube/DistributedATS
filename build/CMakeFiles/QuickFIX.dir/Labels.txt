@@ -1,0 +1,13 @@
+# Target labels
+ QuickFIX
+# Source files and their labels
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/QuickFIX
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/QuickFIX.rule
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/QuickFIX-complete.rule
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/QuickFIX-prefix/src/QuickFIX-stamp/QuickFIX-build.rule
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/QuickFIX-prefix/src/QuickFIX-stamp/QuickFIX-configure.rule
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/QuickFIX-prefix/src/QuickFIX-stamp/QuickFIX-download.rule
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/QuickFIX-prefix/src/QuickFIX-stamp/QuickFIX-install.rule
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/QuickFIX-prefix/src/QuickFIX-stamp/QuickFIX-mkdir.rule
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/QuickFIX-prefix/src/QuickFIX-stamp/QuickFIX-patch_disconnected.rule
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/QuickFIX-prefix/src/QuickFIX-stamp/QuickFIX-update_disconnected.rule

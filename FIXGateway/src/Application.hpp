@@ -78,7 +78,7 @@ class DATSApplication : public FIX::Application, public FIX::MessageCracker {
 public:
   DATSApplication(
       std::string dataService, std::string senderCompId,
-      DataWriterContrainerPtr dataWriterContainer)
+      DataWriterContainerPtr dataWriterContainer)
       : _connection_id(0), _dataService(dataService),
         _senderCompId(senderCompId),
         _dataWriterContainer(dataWriterContainer){};
@@ -110,7 +110,7 @@ public:
     _authService = authService;
   };
     
-    const std::shared_ptr<DistributedATS::DataWriterContrainer>& get_data_writer_container() const
+    const std::shared_ptr<DistributedATS::DataWriterContainer>& get_data_writer_container() const
     {
         return _dataWriterContainer;
     }
@@ -120,7 +120,7 @@ public:
 private:
   DistributedATS::SocketAcceptor *_acceptor;
   std::shared_ptr<AuthServiceHelper> _authService;
-  DistributedATS::DataWriterContrainerPtr _dataWriterContainer;
+  DistributedATS::DataWriterContainerPtr _dataWriterContainer;
 
   unsigned int _connection_id; // used in token generation
   std::string _dataService;

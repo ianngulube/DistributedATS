@@ -1,0 +1,2 @@
+/usr/bin/ar qc libtestingFramework.a CMakeFiles/testingFramework.dir/abts.cpp.o CMakeFiles/testingFramework.dir/appenderskeletontestcase.cpp.o CMakeFiles/testingFramework.dir/logunit.cpp.o CMakeFiles/testingFramework.dir/vectorappender.cpp.o CMakeFiles/testingFramework.dir/writerappendertestcase.cpp.o
+/usr/bin/ranlib libtestingFramework.a

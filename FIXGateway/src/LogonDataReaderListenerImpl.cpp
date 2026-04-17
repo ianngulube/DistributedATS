@@ -44,8 +44,7 @@ auto const logon_processor = [] (DistributedATS::DATSApplication &application, D
     std::stringstream ss;
     LogonLogger::log(ss, logon);
     
-    std::cout << "Data Reader Logon : " << ss.str() << std::endl;
-    
+    LOG4CXX_DEBUG(logger, "Data Reader Logon : " << ss.str());
     LOG4CXX_INFO(logger, "Data Reader Logon  : [" <<  ss.str() << "]");
    
     FIX::Message logonMessage;

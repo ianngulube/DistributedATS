@@ -38,7 +38,6 @@
 
 #include <boost/asio.hpp>
 #include <boost/asio/signal_set.hpp>
-#include <boost/bind.hpp>
 #include <boost/program_options.hpp>
 
 #include <BasicDomainParticipant.h>
@@ -55,7 +54,6 @@
 #include "SocketAcceptor.h"
 #include "SocketConnection.h"
 
-#include <BasicDomainParticipant.h>
 #include <Common.h>
 
 #include "ExecutionReportDataReaderListenerImpl.h"
@@ -73,8 +71,6 @@
 
 #include "Application.hpp"
 #include "AuthServiceHelper.h"
-
-#include <fstream>
 
 #include "FileLog.h"
 
@@ -108,18 +104,26 @@ int main(int argc, char **argv)
         boost::program_options::store(parse_command_line(argc, argv, options_desc), vm);
         boost::program_options::notify(vm);
 
-        if (vm.count("help"))
-            std::cout << options_desc << '\n';
-        else if (vm.count("config"))
+        if (vm.count("help")) {
+            std::ostringstream help_stream;
+            help_stream << options_desc;
+            LOG4CXX_INFO(logger, help_stream.str());
+            return 0;
+        }
+
+        if (vm.count("config"))
             quickfix_config_file = vm["config"].as<std::string>();
+
+        if (quickfix_config_file.empty()) {
+            LOG4CXX_ERROR(logger, "Error: Config file name is not specified.");
+            return -1;
+        }
 
         is_running = true;
         
         auto settings = std::make_shared<FIX::SessionSettings>(quickfix_config_file);
       
         FIX::SessionID default_session_id("FIX.4.4", "DEFAULT", "DEFAULT");
-        
-        auto session_settings = settings->get(default_session_id);
           
         auto dats_home = std::getenv("DATS_HOME");
         auto dats_log_home = std::getenv("DATS_LOG_HOME");
@@ -143,13 +147,7 @@ int main(int argc, char **argv)
         participant_ptr->create_subscriber();
       
       
-        if (quickfix_config_file.empty()) {
-            std::cerr << "Error: Config file name is not specified." << std::endl;
-            return -1;
-        }
-
-      
-        LOG4CXX_INFO(logger, "SenderCompID : [" << sender_comp_id << "] | DataService : ["<< data_service_name << "]");
+LOG4CXX_INFO(logger, "SenderCompID : [" << sender_comp_id << "] | DataService : ["<< data_service_name << "]");
 
         /* // content filtering for messages directed to instances of gateways
         // with given sender comp id.  These messages include Logon/Logout,
@@ -167,7 +165,7 @@ int main(int argc, char **argv)
         DistributedATS::FileLogFactory log_factory(*settings, fix_prefix);
 
         auto data_writer_container =
-            std::make_shared<DistributedATS::DataWriterContrainer>(participant_ptr);
+            std::make_shared<DistributedATS::DataWriterContainer>(participant_ptr);
       
         DistributedATS::DATSApplication application(data_service_name, sender_comp_id, data_writer_container);
         
@@ -185,7 +183,7 @@ int main(int argc, char **argv)
         }
       
         auto data_reader_container =
-        std::make_shared<DistributedATS::DataReaderContrainer>(participant_ptr, application, sender_comp_id);
+        std::make_shared<DistributedATS::DataReaderContainer>(participant_ptr, application, sender_comp_id);
       
         auto authService = std::make_shared<AuthServiceHelper>( settings, session_factory, default_dictionary, sender_comp_id);
         application.setAuthService(authService);

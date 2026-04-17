@@ -31,6 +31,7 @@
 
 #include "Application.hpp"
 #include "SocketConnection.h"
+#include <memory>
 #include <quickfix/Acceptor.h>
 #include <quickfix/SocketServer.h>
 
@@ -61,7 +62,7 @@ private:
 
   typedef std::set<FIX::SessionID> Sessions;
   typedef std::map<int, Sessions> PortToSessions;
-  typedef std::map<int, SocketConnection *> SocketConnections;
+  typedef std::map<int, std::unique_ptr<SocketConnection>> SocketConnections;
 
   void onConfigure(const FIX::SessionSettings &) EXCEPT(ConfigError);
   void onInitialize(const FIX::SessionSettings &) EXCEPT(RuntimeError);
@@ -79,7 +80,7 @@ private:
 
   bool proceedWithLogon(const SessionID &);
 
-  FIX::SocketServer *m_pServer;
+  std::unique_ptr<FIX::SocketServer> m_pServer;
   PortToSessions m_portToSessions;
   SocketConnections m_connections;
 

@@ -1,0 +1,43 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/testingUtilities.dir/__/xml/xlevel.cpp.o"
+  "CMakeFiles/testingUtilities.dir/__/xml/xlevel.cpp.o.d"
+  "CMakeFiles/testingUtilities.dir/absolutedateandtimefilter.cpp.o"
+  "CMakeFiles/testingUtilities.dir/absolutedateandtimefilter.cpp.o.d"
+  "CMakeFiles/testingUtilities.dir/absolutetimefilter.cpp.o"
+  "CMakeFiles/testingUtilities.dir/absolutetimefilter.cpp.o.d"
+  "CMakeFiles/testingUtilities.dir/binarycompare.cpp.o"
+  "CMakeFiles/testingUtilities.dir/binarycompare.cpp.o.d"
+  "CMakeFiles/testingUtilities.dir/compare.cpp.o"
+  "CMakeFiles/testingUtilities.dir/compare.cpp.o.d"
+  "CMakeFiles/testingUtilities.dir/controlfilter.cpp.o"
+  "CMakeFiles/testingUtilities.dir/controlfilter.cpp.o.d"
+  "CMakeFiles/testingUtilities.dir/filenamefilter.cpp.o"
+  "CMakeFiles/testingUtilities.dir/filenamefilter.cpp.o.d"
+  "CMakeFiles/testingUtilities.dir/iso8601filter.cpp.o"
+  "CMakeFiles/testingUtilities.dir/iso8601filter.cpp.o.d"
+  "CMakeFiles/testingUtilities.dir/linenumberfilter.cpp.o"
+  "CMakeFiles/testingUtilities.dir/linenumberfilter.cpp.o.d"
+  "CMakeFiles/testingUtilities.dir/relativetimefilter.cpp.o"
+  "CMakeFiles/testingUtilities.dir/relativetimefilter.cpp.o.d"
+  "CMakeFiles/testingUtilities.dir/threadfilter.cpp.o"
+  "CMakeFiles/testingUtilities.dir/threadfilter.cpp.o.d"
+  "CMakeFiles/testingUtilities.dir/transformer.cpp.o"
+  "CMakeFiles/testingUtilities.dir/transformer.cpp.o.d"
+  "CMakeFiles/testingUtilities.dir/utilfilter.cpp.o"
+  "CMakeFiles/testingUtilities.dir/utilfilter.cpp.o.d"
+  "CMakeFiles/testingUtilities.dir/xmlfilenamefilter.cpp.o"
+  "CMakeFiles/testingUtilities.dir/xmlfilenamefilter.cpp.o.d"
+  "CMakeFiles/testingUtilities.dir/xmllineattributefilter.cpp.o"
+  "CMakeFiles/testingUtilities.dir/xmllineattributefilter.cpp.o.d"
+  "CMakeFiles/testingUtilities.dir/xmlthreadfilter.cpp.o"
+  "CMakeFiles/testingUtilities.dir/xmlthreadfilter.cpp.o.d"
+  "CMakeFiles/testingUtilities.dir/xmltimestampfilter.cpp.o"
+  "CMakeFiles/testingUtilities.dir/xmltimestampfilter.cpp.o.d"
+  "libtestingUtilities.a"
+  "libtestingUtilities.pdb"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/testingUtilities.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

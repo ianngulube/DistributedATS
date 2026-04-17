@@ -37,8 +37,6 @@
 #include <quickfix/Utility.h>
 #include <set>
 
-using namespace FIX;
-
 namespace DistributedATS {
 class SocketServer;
 class SocketConnector;
@@ -49,9 +47,9 @@ class SocketAcceptor;
 /// Encapsulates a socket file descriptor (single-threaded).
 class SocketConnection : public Responder {
 public:
-  typedef std::set<SessionID> Sessions;
+  typedef std::set<FIX::SessionID> Sessions;
 
-  SocketConnection(int s, Sessions sessions, SocketMonitor *pMonitor);
+  SocketConnection(int s, Sessions sessions, FIX::SocketMonitor *pMonitor);
   /* SocketConnection( FIX::SocketInitiator&, const SessionID&, int,
    * SocketMonitor* );*/
   virtual ~SocketConnection();
@@ -64,7 +62,7 @@ public:
   bool processQueue();
 
   void signal() {
-    Locker l(m_mutex);
+    FIX::Locker l(m_mutex);
     if (m_sendQueue.size() == 1)
       m_pMonitor->signal(m_socket);
   }
@@ -72,7 +70,7 @@ public:
   void setSession(FIX::Session *pSession) { m_pSession = pSession; }
 
   void unsignal() {
-    Locker l(m_mutex);
+    FIX::Locker l(m_mutex);
     if (m_sendQueue.size() == 0)
       m_pMonitor->unsignal(m_socket);
   }
@@ -92,22 +90,22 @@ public:
   std::string getPendingConnectionToken() { return m_pendingConnectionToken; }
 
 private:
-  typedef std::deque<std::string, ALLOCATOR<std::string>> Queue;
+  typedef std::deque<std::string, FIX::ALLOCATOR<std::string>> Queue;
 
   void readFromSocket() noexcept(false);
   bool readMessage(std::string &msg);
-  void readMessages(SocketMonitor &s);
+  void readMessages(FIX::SocketMonitor &s);
 
   int m_socket;
   char m_buffer[BUFSIZ];
 
-  Parser m_parser;
+  FIX::Parser m_parser;
   Queue m_sendQueue;
   unsigned m_sendLength;
   Sessions m_sessions;
   FIX::Session *m_pSession;
-  SocketMonitor *m_pMonitor;
-  Mutex m_mutex;
+  FIX::SocketMonitor *m_pMonitor;
+  FIX::Mutex m_mutex;
   fd_set m_fds;
 
   std::string m_pendingLogin;

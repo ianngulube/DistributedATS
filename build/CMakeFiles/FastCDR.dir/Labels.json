@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/FastCDR"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/FastCDR.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/FastCDR-complete.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastCDR-prefix/src/FastCDR-stamp/FastCDR-build.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastCDR-prefix/src/FastCDR-stamp/FastCDR-configure.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastCDR-prefix/src/FastCDR-stamp/FastCDR-download.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastCDR-prefix/src/FastCDR-stamp/FastCDR-install.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastCDR-prefix/src/FastCDR-stamp/FastCDR-mkdir.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastCDR-prefix/src/FastCDR-stamp/FastCDR-patch_disconnected.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastCDR-prefix/src/FastCDR-stamp/FastCDR-update_disconnected.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"FastCDR"
+		],
+		"name" : "FastCDR"
+	}
+}

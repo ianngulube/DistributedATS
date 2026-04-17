@@ -36,7 +36,6 @@ namespace DistributedATS {
 
 MarketDataSnapshotFullRefreshDataReaderListenerImpl::
     ~MarketDataSnapshotFullRefreshDataReaderListenerImpl() {
-  // TODO Auto-generated destructor stub
 }
 
 void MarketDataSnapshotFullRefreshDataReaderListenerImpl::on_data_available(

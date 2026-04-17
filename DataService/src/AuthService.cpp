@@ -94,14 +94,9 @@ int AuthService::service (void)
         if ( !sqlite_connection_ptr->connected() )
         {
             LOG4CXX_ERROR(logger, "Auth Service is not connected to the database.\n");
-            
-            return 0;
-        };
-        
-        std::shared_ptr<DistributedATS_Logon::Logon> logon_ptr;
-        
-        if ( _logon_request_queue->pop( logon_ptr ) )
-        {
+            std::this_thread::sleep_for(std::chrono::duration<long double, std::milli>(1000));
+            continue;
+        }
             authenticate( sqlite_connection_ptr, logon_ptr );
         } else {
             std::this_thread::sleep_for(std::chrono::duration<long double, std::milli>(1000));
@@ -147,7 +142,7 @@ bool AuthService::authenticate( std::shared_ptr<DistributedATS::PostgresConnecti
         logout.DATS_Source(logon->DATS_Destination());
         logout.DATS_Destination(logon->DATS_Source());
         logout.DATS_SourceUser("AUTH");
-        logout.DATS_DestinationUser(logon->RawData());
+        logout.DATS_DestinationUser(logon->DATS_SourceUser());
         
         logout.Text(textOut);
 

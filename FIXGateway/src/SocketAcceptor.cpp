@@ -39,13 +39,13 @@ namespace DistributedATS {
 SocketAcceptor::SocketAcceptor(
     DistributedATS::DATSApplication &application, MessageStoreFactory &factory,
     const SessionSettings &settings) noexcept(false)
-    : Acceptor(application, factory, settings), m_pServer(0) {}
+    : Acceptor(application, factory, settings), m_pServer(nullptr) {}
 
 SocketAcceptor::SocketAcceptor(
     DistributedATS::DATSApplication &application, MessageStoreFactory &factory,
     const SessionSettings &settings, FIX::LogFactory &logFactory/*,
     std::ofstream *dds_input_stream_log_file*/) noexcept(false)
-    : Acceptor(application, factory, settings, logFactory), m_pServer(0) {}
+    : Acceptor(application, factory, settings, logFactory), m_pServer(nullptr) {}
 
 SocketAcceptor::~SocketAcceptor() {
   SocketConnections::iterator iter;
@@ -122,8 +122,7 @@ void SocketAcceptor::onStart() {
   }
 
   m_pServer->close();
-  delete m_pServer;
-  m_pServer = 0;
+  m_pServer.reset();
 }
 
 bool SocketAcceptor::onPoll() {
@@ -146,7 +145,7 @@ bool SocketAcceptor::onPoll() {
     }
   }
 
-  std::cout << "Polling" << std::endl;
+  LOG4CXX_DEBUG(logger, "SocketAcceptor polling");
   m_pServer->block(*this, true);
   return true;
 }
@@ -161,7 +160,7 @@ void SocketAcceptor::onConnect(FIX::SocketServer &server, int a, int s) {
     return;
   int port = server.socketToPort(a);
   Sessions sessions = m_portToSessions[port];
-  m_connections[s] = new SocketConnection(s, sessions, &server.getMonitor());
+  m_connections[s] = std::make_unique<SocketConnection>(s, sessions, &server.getMonitor());
 
   std::stringstream stream;
   stream << "Accepted connection from " << socket_peername(s) << " on port "
@@ -175,7 +174,7 @@ void SocketAcceptor::onWrite(FIX::SocketServer &server, int s) {
   SocketConnections::iterator i = m_connections.find(s);
   if (i == m_connections.end())
     return;
-  SocketConnection *pSocketConnection = i->second;
+  SocketConnection *pSocketConnection = i->second.get();
   if (pSocketConnection->processQueue())
     pSocketConnection->unsignal();
 }
@@ -184,7 +183,7 @@ bool SocketAcceptor::onData(FIX::SocketServer &server, int s) {
   SocketConnections::iterator i = m_connections.find(s);
   if (i == m_connections.end())
     return false;
-  SocketConnection *pSocketConnection = i->second;
+  SocketConnection *pSocketConnection = i->second.get();
   return pSocketConnection->read(*this, server);
 }
 
@@ -192,7 +191,7 @@ void SocketAcceptor::onDisconnect(FIX::SocketServer &, int s) {
   SocketConnections::iterator i = m_connections.find(s);
   if (i == m_connections.end())
     return;
-  SocketConnection *pSocketConnection = i->second;
+  SocketConnection *pSocketConnection = i->second.get();
 
   FIX::Session *pSession = pSocketConnection->getSession();
   if (pSession) {
@@ -202,8 +201,6 @@ void SocketAcceptor::onDisconnect(FIX::SocketServer &, int s) {
     application.onDisconnect(pSession->getSessionID(), pSocketConnection);
   }
 
-    // TODO: this will leak - review pSocketConnection lifecycle
-  //delete pSocketConnection;
   m_connections.erase(s);
 }
 

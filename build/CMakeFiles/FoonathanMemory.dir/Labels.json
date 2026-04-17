@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/FoonathanMemory"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/FoonathanMemory.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/FoonathanMemory-complete.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FoonathanMemory-prefix/src/FoonathanMemory-stamp/FoonathanMemory-build.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FoonathanMemory-prefix/src/FoonathanMemory-stamp/FoonathanMemory-configure.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FoonathanMemory-prefix/src/FoonathanMemory-stamp/FoonathanMemory-download.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FoonathanMemory-prefix/src/FoonathanMemory-stamp/FoonathanMemory-install.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FoonathanMemory-prefix/src/FoonathanMemory-stamp/FoonathanMemory-mkdir.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FoonathanMemory-prefix/src/FoonathanMemory-stamp/FoonathanMemory-patch_disconnected.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FoonathanMemory-prefix/src/FoonathanMemory-stamp/FoonathanMemory-update_disconnected.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"FoonathanMemory"
+		],
+		"name" : "FoonathanMemory"
+	}
+}

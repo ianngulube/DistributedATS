@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-find_package( Boost )
+find_package( Boost REQUIRED COMPONENTS program_options )
 find_package( DDS REQUIRED )
 find_package( log4cxx REQUIRED )
 find_package( quickfix REQUIRED )

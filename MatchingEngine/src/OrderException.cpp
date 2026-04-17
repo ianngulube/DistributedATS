@@ -34,7 +34,6 @@ OrderException::OrderException(
     : _client_order_id(newOrderSingle.ClOrdID()),
     _counter_partry(newOrderSingle.DATS_SourceUser()),
       _reason(reason) {
-  // TODO Auto-generated constructor stub
 }
 
 OrderException::OrderException(const std::string &counter_party,
@@ -44,7 +43,6 @@ OrderException::OrderException(const std::string &counter_party,
       _reason(reason) {}
 
 OrderException::~OrderException() {
-  // TODO Auto-generated destructor stub
 }
 
 bool OrderException::populateExecutionReportWithRejectCode(

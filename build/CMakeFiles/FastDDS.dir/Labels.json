@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/FastDDS"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/FastDDS.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/FastDDS-complete.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastDDS-prefix/src/FastDDS-stamp/FastDDS-build.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastDDS-prefix/src/FastDDS-stamp/FastDDS-configure.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastDDS-prefix/src/FastDDS-stamp/FastDDS-download.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastDDS-prefix/src/FastDDS-stamp/FastDDS-install.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastDDS-prefix/src/FastDDS-stamp/FastDDS-mkdir.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastDDS-prefix/src/FastDDS-stamp/FastDDS-patch_disconnected.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastDDS-prefix/src/FastDDS-stamp/FastDDS-update_disconnected.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"FastDDS"
+		],
+		"name" : "FastDDS"
+	}
+}

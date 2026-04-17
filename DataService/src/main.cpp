@@ -43,13 +43,9 @@
 
 #include <boost/asio.hpp>
 #include <boost/asio/signal_set.hpp>
-#include <boost/bind.hpp>
 #include <boost/program_options.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
-
-#include <thread>
-#include <chrono>
 
 std::atomic<bool> is_running;
 
@@ -64,7 +60,7 @@ int main(int argc, char* argv[] )
 
         if ( argc < 2 )
         {
-            std::cout << "usage: " << argv[ 0 ] << std::endl << "\t\t-c data_service_config_file_name" << std::endl;
+            LOG4CXX_INFO(logger, "usage: " << argv[ 0 ] << "\n\t\t-c data_service_config_file_name");
             return -1;
         }
 
@@ -80,16 +76,19 @@ int main(int argc, char* argv[] )
         boost::program_options::store(parse_command_line(argc, argv, options_desc), vm);
         boost::program_options::notify(vm);
 
-        if (vm.count("help"))
-          std::cout << options_desc << '\n';
-        else if (vm.count("config"))
-            data_service_config_file = vm["config"].as<std::string>();
-        
+        if (vm.count("help")) {
+          std::ostringstream help_stream;
+          help_stream << options_desc;
+          LOG4CXX_INFO(logger, help_stream.str());
+          return 0;
+        }
 
+        if (vm.count("config"))
+            data_service_config_file = vm["config"].as<std::string>();
 
         if ( data_service_config_file.empty() )
         {
-            std::cerr << "Error: Config file name is not specified." << std::endl;
+            LOG4CXX_ERROR(logger, "Error: Config file name is not specified.");
             return -1;
         }
         
@@ -157,13 +156,12 @@ int main(int argc, char* argv[] )
         
         signals.async_wait([&](const boost::system::error_code& ec, int signal_number) {
             if (!ec) {
-                std::cout << "Signal number " << signal_number << std::endl;
-                std::cout << "Gracefully stopping the timer and exiting"
-                          << std::endl;
+                LOG4CXX_INFO(logger, "Signal number " << signal_number);
+                LOG4CXX_INFO(logger, "Gracefully stopping the timer and exiting");
                 is_running.store(false);
             } else {
-                std::cout << "Error " << ec.value() << " - " << ec.message()
-                          << " - Signal number - " << signal_number << std::endl;
+                LOG4CXX_ERROR(logger, "Signal handling error " << ec.value() << " - " << ec.message()
+                          << " - Signal number - " << signal_number);
             }
         });
         

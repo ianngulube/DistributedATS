@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/Log4cxx"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/Log4cxx.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/Log4cxx-complete.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/Log4cxx-prefix/src/Log4cxx-stamp/Log4cxx-build.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/Log4cxx-prefix/src/Log4cxx-stamp/Log4cxx-configure.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/Log4cxx-prefix/src/Log4cxx-stamp/Log4cxx-download.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/Log4cxx-prefix/src/Log4cxx-stamp/Log4cxx-install.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/Log4cxx-prefix/src/Log4cxx-stamp/Log4cxx-mkdir.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/Log4cxx-prefix/src/Log4cxx-stamp/Log4cxx-patch_disconnected.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/Log4cxx-prefix/src/Log4cxx-stamp/Log4cxx-update_disconnected.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"Log4cxx"
+		],
+		"name" : "Log4cxx"
+	}
+}

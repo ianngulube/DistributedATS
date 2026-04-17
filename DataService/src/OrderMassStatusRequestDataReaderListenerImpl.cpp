@@ -26,7 +26,7 @@
 */
 
 #include "OrderMassStatusRequestDataReaderListenerImpl.h"
-#include <iostream>
+#include <sstream>
 #include <OrderMassStatusRequestLogger.hpp>
 
 namespace DistributedATS {
@@ -36,12 +36,9 @@ OrderMassStatusRequestDataReaderListenerImpl::OrderMassStatusRequestDataReaderLi
 )
 : _orderMassStatusRequestQueuePtr ( orderMassStatusRequestQueuePtr )
 {
-	// TODO Auto-generated constructor stub
-
 }
 
 OrderMassStatusRequestDataReaderListenerImpl::~OrderMassStatusRequestDataReaderListenerImpl() {
-	// TODO Auto-generated destructor stub
 }
 
 void OrderMassStatusRequestDataReaderListenerImpl::on_data_available( eprosima::fastdds::dds::DataReader* reader)

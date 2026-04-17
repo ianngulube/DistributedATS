@@ -27,28 +27,21 @@
 
 #include "NewOrderSingleDataReaderListenerImpl.h"
 #include "OrderException.h"
-#include <iostream>
-#include <vector>
 
 #include <quickfix/FixValues.h>
 
 #include <LoggerHelper.h>
 #include <NewOrderSingleLogger.hpp>
 
-
-
 namespace MatchingEngine {
 
 NewOrderSingleDataReaderListenerImpl::NewOrderSingleDataReaderListenerImpl(
     std::shared_ptr<DistributedATS::Market> market)
     : _market(market) {
-  // TODO Auto-generated constructor stub
 }
 
 NewOrderSingleDataReaderListenerImpl::~NewOrderSingleDataReaderListenerImpl() {
-  // TODO Auto-generated destructor stub
-
-} /* namespace MatchingEngine */
+}
 
 void NewOrderSingleDataReaderListenerImpl::on_data_available(
        eprosima::fastdds::dds::DataReader* reader)

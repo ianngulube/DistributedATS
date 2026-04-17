@@ -38,11 +38,9 @@ namespace DistributedATS {
 SecurityListDataReaderListenerImpl::SecurityListDataReaderListenerImpl(
     market_ptr marketPtr)
     : _marketPtr(marketPtr) {
-  // TODO Auto-generated constructor stub
 }
 
 SecurityListDataReaderListenerImpl::~SecurityListDataReaderListenerImpl() {
-  // TODO Auto-generated destructor stub
 }
 
 void SecurityListDataReaderListenerImpl::on_data_available(

@@ -95,8 +95,7 @@ FIX::Session *AuthServiceHelper::createSessionFromAuthMessage(
      
     }
   } catch (FIX::ConfigError &cfgError) {
-    std::cerr << "Config Exception in session create : " << cfgError.what()
-              << std::endl;
+    LOG4CXX_ERROR(logger, "Config Exception in session create : " << cfgError.what());
   };
 
   return session;
@@ -110,7 +109,7 @@ void AuthServiceHelper::insertPendingConnection(
     
     LOG4CXX_INFO(logger, "Inserting pending connection : [" << connectionToken << "] Socket :[" << socketConnection->getSocket()<<"]");
 
-  std::cout << "Connection Token: " << connectionToken << std::endl;
+  LOG4CXX_DEBUG(logger, "Connection Token: " << connectionToken);
   m_pendingLogonSocketConnection[connectionToken] = socketConnection;
   socketConnection->setPendingConnectionToken(connectionToken);
 }
@@ -155,8 +154,7 @@ void AuthServiceHelper::processDDSLogon(FIX::Message &message) {
       FIX::Text logoutText("New session logged in with your credentials");
       logoutMessage.set(logoutText);
 
-      std::cout << "Sending logout: " << activeSessionID->second << std::endl;
-        
+      LOG4CXX_INFO(logger, "Sending logout: " << activeSessionID->second);
       FIX::Session::sendToTarget(logoutMessage, activeSessionID->second);
       m_activeUserMap.erase(activeSessionID);
 
@@ -186,8 +184,7 @@ void AuthServiceHelper::processDDSLogon(FIX::Message &message) {
     {
         m_activeUserMap[targetSubID] = newFixSessionID;
     } else {
-      std::cerr << "Something is wrong unable to create session object!!!!!"
-                << std::endl;
+      LOG4CXX_ERROR(logger, "Something is wrong unable to create session object!!!!!");
       return;
     }
   } else {

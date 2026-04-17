@@ -1,0 +1,9 @@
+# Hashes of file build rules.
+e4fc5e1634f7565b69513b05d351223d CMakeFiles/QUICKFIX_ALLOCATOR_HEADERS_COPY
+a269b59fa32205537d31333f6d9b7794 CMakeFiles/QUICKFIX_HEADERS_COPY
+eb78b1c35c7c2507b43b136a6539ce22 examples/executor/C++/CMakeFiles/executor_target
+66b4dea7b7bed581a344c174dfd74452 examples/ordermatch/CMakeFiles/ordermatch_target
+cec5687ed0934dcc9dadeb9f80b49d97 examples/tradeclient/CMakeFiles/tradeclient_target
+9c9abf00aa09add51ee8bd551077fd53 src/C++/test/CMakeFiles/ut_target
+e7d0703325a208b65d59310ef2474122 src/CMakeFiles/at_target
+c58b66447badd553c78d7a8d639edde7 src/CMakeFiles/pt_target

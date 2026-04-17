@@ -53,7 +53,7 @@
 
 namespace DistributedATS {
 
-struct DataWriterContrainer {
+struct DataWriterContainer {
     
     distributed_ats_utils::topic_tuple_ptr<DistributedATS_Logon::Logon> _logon_topic_tuple;
     distributed_ats_utils::topic_tuple_ptr<DistributedATS_NewOrderSingle::NewOrderSingle> _new_order_single_topic_tuple;
@@ -75,7 +75,7 @@ struct DataWriterContrainer {
     distributed_ats_utils::data_writer_ptr _order_cancel_replace_request_dw;
     
     
-  DataWriterContrainer(
+  DataWriterContainer(
       distributed_ats_utils::basic_domain_participant_ptr participant_ptr) {
     //
     // Topics
@@ -152,6 +152,6 @@ struct DataWriterContrainer {
     
 };
 
-using DataWriterContrainerPtr = std::shared_ptr<DistributedATS::DataWriterContrainer>;
+using DataWriterContainerPtr = std::shared_ptr<DistributedATS::DataWriterContainer>;
 
 };

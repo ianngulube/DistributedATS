@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/QuickFIX"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/QuickFIX.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/QuickFIX-complete.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/QuickFIX-prefix/src/QuickFIX-stamp/QuickFIX-build.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/QuickFIX-prefix/src/QuickFIX-stamp/QuickFIX-configure.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/QuickFIX-prefix/src/QuickFIX-stamp/QuickFIX-download.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/QuickFIX-prefix/src/QuickFIX-stamp/QuickFIX-install.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/QuickFIX-prefix/src/QuickFIX-stamp/QuickFIX-mkdir.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/QuickFIX-prefix/src/QuickFIX-stamp/QuickFIX-patch_disconnected.rule"
+		},
+		{
+			"file" : "/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/QuickFIX-prefix/src/QuickFIX-stamp/QuickFIX-update_disconnected.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"QuickFIX"
+		],
+		"name" : "QuickFIX"
+	}
+}

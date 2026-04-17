@@ -41,7 +41,7 @@
 
 namespace DistributedATS {
 
-struct DataReaderContrainer {
+struct DataReaderContainer {
     
     
     distributed_ats_utils::data_reader_tuple_ptr<DistributedATS_Logon::Logon> _logon_data_reader_tuple;
@@ -70,12 +70,12 @@ struct DataReaderContrainer {
     distributed_ats_utils::data_reader_tuple_ptr<DistributedATS_SecurityList::SecurityList>  _security_list_data_reader_tuple;
     
     
-    ~DataReaderContrainer()
+    ~DataReaderContainer()
     {
-        std::cout << "~DataReaderContrainer" << std::endl;
+        LOG4CXX_DEBUG(logger, "~DataReaderContainer");
     }
 
-  DataReaderContrainer(
+  DataReaderContainer(
       distributed_ats_utils::basic_domain_participant_ptr participant_ptr,
       DistributedATS::DATSApplication &application,
       std::string gateway_name) {

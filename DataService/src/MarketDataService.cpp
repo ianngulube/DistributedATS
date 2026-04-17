@@ -149,13 +149,13 @@ void MarketDataService::createMarketDataFullRefreshDataWriter()
     
 bool MarketDataService::processMarketDataRequest( const MarketDataRequestPtr& marketDataRequestPtr )
 {
-    std::cout << ">>>> Received MarketDataRequest : " << marketDataRequestPtr->DATS_Source() << ":"
+    LOG4CXX_INFO(logger, "Received MarketDataRequest : " << marketDataRequestPtr->DATS_Source() << ":"
         << marketDataRequestPtr->DATS_Destination()
-        << ":" << marketDataRequestPtr->DATS_SourceUser() << std::endl;
+        << ":" << marketDataRequestPtr->DATS_SourceUser());
     
     for ( int symbol_index = 0; symbol_index<marketDataRequestPtr->c_NoRelatedSym().size(); ++symbol_index )
     {
-        std::cout << "Symbol to send full snapshot : " << marketDataRequestPtr->c_NoRelatedSym()[symbol_index].Symbol() << std::endl;
+        LOG4CXX_DEBUG(logger, "Symbol to send full snapshot : " << marketDataRequestPtr->c_NoRelatedSym()[symbol_index].Symbol());
         
         DistributedATS_MarketDataSnapshotFullRefresh::MarketDataSnapshotFullRefresh marketDataSnapshotFullRefresh;
         
@@ -167,21 +167,17 @@ bool MarketDataService::processMarketDataRequest( const MarketDataRequestPtr& ma
         marketDataSnapshotFullRefresh.DATS_DestinationUser(marketDataRequestPtr->DATS_SourceUser());
 
         if ( populateMarketDataSnapshotFullRefresh( DistributedATS::Instrument( 
-			marketDataRequestPtr->c_NoRelatedSym()[symbol_index].SecurityExchange(),
-			marketDataRequestPtr->c_NoRelatedSym()[symbol_index].Symbol() ), marketDataSnapshotFullRefresh ) )
+            marketDataRequestPtr->c_NoRelatedSym()[symbol_index].SecurityExchange(),
+            marketDataRequestPtr->c_NoRelatedSym()[symbol_index].Symbol() ), marketDataSnapshotFullRefresh ) )
         {
-            std::cout << "Publishing Full Market Data Snapshot : " << marketDataSnapshotFullRefresh.Symbol() << std::endl;
+            LOG4CXX_INFO(logger, "Publishing Full Market Data Snapshot : " << marketDataSnapshotFullRefresh.Symbol());
             int ret = _market_data_shapshot_full_refresh_dw->write(&marketDataSnapshotFullRefresh);
-            
             if ( ret != eprosima::fastdds::dds::RETCODE_OK ) {
-                LOG4CXX_ERROR(logger, "Market Data Snapshot Data Write returned : " << ret );
+                LOG4CXX_ERROR(logger, "Market Data Snapshot write returned : " << ret);
             }
-
         }
-        
-        
     }
-   
+
     return true;
 }
 

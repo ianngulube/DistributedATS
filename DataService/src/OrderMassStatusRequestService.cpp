@@ -139,7 +139,7 @@ bool OrderMassStatusRequestService::processMassOrderStatusServiceRequest( OrderM
     {
         for ( auto& orderToExecReportListPtr : *orderToExecutionReportMapPtr )
         {
-            std::cout << "Need to publish execution report for the following order id : " << orderToExecReportListPtr.first << std::endl;
+            LOG4CXX_DEBUG(logger, "Need to publish execution report for order id: " << orderToExecReportListPtr.first);
             for ( auto& execReport : *(orderToExecReportListPtr.second) )
             {
                 execReport->DATS_Source(orderMassStatusRequestPtr->DATS_Destination());

@@ -193,7 +193,7 @@ bool RefDataService::processRefDataRequest( const SecurityListRequestPtr& securi
     int instrument_index = 0;
     for ( const auto& instrument : *instrumentListPtr )
     {
-        std::cout << instrument->symbol.c_str() << std::endl;
+        LOG4CXX_DEBUG(logger, instrument->symbol)
         
         securityList.c_NoRelatedSym()[ instrument_index ].Symbol(instrument->symbol);
         securityList.c_NoRelatedSym()[ instrument_index ].SecurityExchange (instrument->marketName);

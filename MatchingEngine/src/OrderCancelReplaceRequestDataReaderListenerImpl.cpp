@@ -39,16 +39,10 @@ OrderCancelReplaceRequestDataReaderListenerImpl::
 OrderCancelReplaceRequestDataReaderListenerImpl(
         std::shared_ptr<DistributedATS::Market> market)
     : _market(market) {
-  // TODO Auto-generated constructor stub
 }
 
 OrderCancelReplaceRequestDataReaderListenerImpl::
     ~OrderCancelReplaceRequestDataReaderListenerImpl() {
-  // TODO Auto-generated destructor stub
-}
-
-void OrderCancelReplaceRequestDataReaderListenerImpl::on_data_available(
-         eprosima::fastdds::dds::DataReader* reader) {
 
     
     DistributedATS_OrderCancelReplaceRequest::OrderCancelReplaceRequest order_cancel_replace_request;
@@ -69,8 +63,7 @@ void OrderCancelReplaceRequestDataReaderListenerImpl::on_data_available(
           auto book = _market->findBook(symbol);
 
           if (!book) {
-            std::cerr << "Order book not found to cancel order : " << symbol
-                      << std::endl;
+            LOG4CXX_WARN(logger, "Order book not found to cancel order : " << symbol);
             return;
           }
 

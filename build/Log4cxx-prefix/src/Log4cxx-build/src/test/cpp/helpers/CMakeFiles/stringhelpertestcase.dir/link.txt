@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/stringhelpertestcase.dir/stringhelpertestcase.cpp.o -o stringhelpertestcase  -Wl,-rpath,/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/Log4cxx-prefix/src/Log4cxx-build/src/main/cpp ../libtestingFramework.a ../util/libtestingUtilities.a ../../../main/cpp/liblog4cxx.so.15.5.0 /usr/lib/x86_64-linux-gnu/libapr-1.so 

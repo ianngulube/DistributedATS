@@ -1,30 +1,30 @@
 cmake_minimum_required(VERSION 3.12.4)
-
-message(STATUS "Current source dir: ${CMAKE_CURRENT_SOURCE_DIR}")
-message(DDS_INCLUDE_DIR="${DDS_INCLUDE_DIR}")
-message(DDS_LIBRARY_DIR="${DDS_LIBRARY_DIR}")
-
-message(QUICKFIX_INCLUDE_DIR="${QUICKFIX_INCLUDE_DIR}")
-message(QUICKFIX_LIBRARY_DIR="${QUICKFIX_LIBRARY_DIR}")
-
-include_directories(${DDS_INCLUDE_DIR})
-link_directories(${DDS_LIBRARY_DIR})
-
-include_directories(${QUICKFIX_INCLUDE_DIR})
-link_directories(${QUICKFIX_LIBRARY_DIR})
-
-include_directories(${LOG4CXX_INCLUDE_DIR})
-link_directories(${LOG4CXX_LIBRARY_DIR})
-
-include_directories(${Boost_INCLUDE_DIR})
-link_directories(${Boost_LIBRARY_DIRS})
-
-file(GLOB DISTRIBUTED_ATS_DATASERVICE_SRC *.cpp)
-
-add_executable(DataService ${DISTRIBUTED_ATS_DATASERVICE_SRC})
+project(DataService)
 
 find_package(Boost REQUIRED COMPONENTS program_options)
-include_directories(${Boost_INCLUDE_DIRS})
+
+message(STATUS "Current source dir: ${CMAKE_CURRENT_SOURCE_DIR}")
+message(STATUS "DDS_INCLUDE_DIR=${DDS_INCLUDE_DIR}")
+message(STATUS "DDS_LIBRARY_DIR=${DDS_LIBRARY_DIR}")
+message(STATUS "QUICKFIX_INCLUDE_DIR=${QUICKFIX_INCLUDE_DIR}")
+message(STATUS "QUICKFIX_LIBRARY_DIR=${QUICKFIX_LIBRARY_DIR}")
+
+file(GLOB DISTRIBUTED_ATS_DATASERVICE_SRC *.cpp)
+add_executable(DataService ${DISTRIBUTED_ATS_DATASERVICE_SRC})
+
+target_include_directories(DataService PRIVATE
+    ${Boost_INCLUDE_DIRS}
+    ${DDS_INCLUDE_DIR}
+    ${QUICKFIX_INCLUDE_DIR}
+    ${LOG4CXX_INCLUDE_DIR}
+)
+
+target_link_directories(DataService PRIVATE
+    ${DDS_LIBRARY_DIR}
+    ${QUICKFIX_LIBRARY_DIR}
+    ${LOG4CXX_LIBRARY_DIR}
+    ${Boost_LIBRARY_DIRS}
+)
 
 target_link_libraries(DataService
     PRIVATE
@@ -35,7 +35,7 @@ target_link_libraries(DataService
     fastcdr
     fastdds
     pqxx
-        pq
+    pq
 )
 
 set(CMAKE_XCODE_ATTRIBUTE_OTHER_CODE_SIGN_FLAGS "-o linker-signed")

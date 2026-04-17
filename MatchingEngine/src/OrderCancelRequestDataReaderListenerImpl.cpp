@@ -39,12 +39,10 @@ OrderCancelRequestDataReaderListenerImpl::
     OrderCancelRequestDataReaderListenerImpl(
         std::shared_ptr<DistributedATS::Market> market)
     : _market(market) {
-  // TODO Auto-generated constructor stub
 }
 
 OrderCancelRequestDataReaderListenerImpl::
     ~OrderCancelRequestDataReaderListenerImpl() {
-  // TODO Auto-generated destructor stub
 }
 
 void OrderCancelRequestDataReaderListenerImpl::on_data_available(
@@ -69,8 +67,7 @@ void OrderCancelRequestDataReaderListenerImpl::on_data_available(
                auto book = _market->findBook(symbol);
 
                if (!book) {
-                 std::cerr << "Order book not found to cancel order : " << symbol
-                           << std::endl;
+                 LOG4CXX_ERROR(logger, "Order book not found to cancel order : " << symbol);
                }
 
                std::string client_order_id = order_cancel_request.OrigClOrdID();

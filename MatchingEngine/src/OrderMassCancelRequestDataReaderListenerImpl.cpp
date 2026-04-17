@@ -36,12 +36,10 @@ OrderMassCancelRequestDataReaderListenerImpl::
     OrderMassCancelRequestDataReaderListenerImpl(
         std::shared_ptr<DistributedATS::Market> market)
     : _market(market) {
-  // TODO Auto-generated constructor stub
 }
 
 OrderMassCancelRequestDataReaderListenerImpl::
     ~OrderMassCancelRequestDataReaderListenerImpl() {
-  // TODO Auto-generated destructor stub
 }
 
 void OrderMassCancelRequestDataReaderListenerImpl::on_data_available(

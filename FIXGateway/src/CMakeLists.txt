@@ -1,31 +1,30 @@
 cmake_minimum_required(VERSION 3.12.4)
-
 project(FIXGateway)
 
+find_package(Boost REQUIRED COMPONENTS program_options)
+
 message(STATUS "Current source dir: ${CMAKE_CURRENT_SOURCE_DIR}")
-message(DDS_INCLUDE_DIR="${DDS_INCLUDE_DIR}")
-message(DDS_LIBRARY_DIR="${DDS_LIBRARY_DIR}")
-
-message(QUICKFIX_INCLUDE_DIR="${QUICKFIX_INCLUDE_DIR}")
-message(QUICKFIX_LIBRARY_DIR="${QUICKFIX_LIBRARY_DIR}")
-
-include_directories(${DDS_INCLUDE_DIR})
-link_directories(${DDS_LIBRARY_DIR})
-
-include_directories(${QUICKFIX_INCLUDE_DIR})
-link_directories(${QUICKFIX_LIBRARY_DIR})
-
-include_directories(${LOG4CXX_INCLUDE_DIR})
-link_directories(${LOG4CXX_LIBRARY_DIR})
-
-include_directories(${Boost_INCLUDE_DIR})
-link_directories(${Boost_LIBRARY_DIRS})
+message(STATUS "DDS_INCLUDE_DIR=${DDS_INCLUDE_DIR}")
+message(STATUS "DDS_LIBRARY_DIR=${DDS_LIBRARY_DIR}")
+message(STATUS "QUICKFIX_INCLUDE_DIR=${QUICKFIX_INCLUDE_DIR}")
+message(STATUS "QUICKFIX_LIBRARY_DIR=${QUICKFIX_LIBRARY_DIR}")
 
 file(GLOB DISTRIBUTED_ATS_FIX_GATEWAY_SRC *.cpp)
 add_executable(FIXGateway ${DISTRIBUTED_ATS_FIX_GATEWAY_SRC})
 
-find_package(Boost REQUIRED COMPONENTS program_options)
-include_directories(${Boost_INCLUDE_DIRS})
+target_include_directories(FIXGateway PRIVATE
+    ${Boost_INCLUDE_DIRS}
+    ${DDS_INCLUDE_DIR}
+    ${QUICKFIX_INCLUDE_DIR}
+    ${LOG4CXX_INCLUDE_DIR}
+)
+
+target_link_directories(FIXGateway PRIVATE
+    ${DDS_LIBRARY_DIR}
+    ${QUICKFIX_LIBRARY_DIR}
+    ${LOG4CXX_LIBRARY_DIR}
+    ${Boost_LIBRARY_DIRS}
+)
 
 target_link_libraries(FIXGateway
     PRIVATE

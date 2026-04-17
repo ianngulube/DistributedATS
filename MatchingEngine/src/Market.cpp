@@ -180,8 +180,7 @@ bool Market::cancel_order(const OrderBookPtr &book,
 
   if (contra_party_orders == orders_.end())
   {
-    std::cerr << "Order for given counter party not found : " << counter_party
-              << std::endl;
+    LOG4CXX_WARN(logger, "Order for given counter party not found : " << counter_party);
     return false;
   };
 
@@ -206,8 +205,7 @@ bool Market::replace_order(const OrderBookPtr &book, const std::string &counter_
     auto contra_party_orders = orders_.find(counter_party);
 
     if (contra_party_orders == orders_.end()) {
-      std::cerr << "Order for given counter party not found : " << counter_party
-                << std::endl;
+      LOG4CXX_WARN(logger, "Order for given counter party not found : " << counter_party);
 
       return false;
     };
@@ -232,8 +230,7 @@ bool Market::mass_cancel(const std::string &counter_party) {
   auto contra_party_orders = orders_.find(counter_party);
 
   if (contra_party_orders == orders_.end()) {
-    std::cerr << "Orders for given counter party not found : " << counter_party
-              << std::endl;
+    LOG4CXX_WARN(logger, "Orders for given counter party not found : " << counter_party);
 
     return false;
   };

@@ -1,0 +1,13 @@
+# Target labels
+ FastCDR
+# Source files and their labels
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/FastCDR
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/FastCDR.rule
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/CMakeFiles/FastCDR-complete.rule
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastCDR-prefix/src/FastCDR-stamp/FastCDR-build.rule
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastCDR-prefix/src/FastCDR-stamp/FastCDR-configure.rule
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastCDR-prefix/src/FastCDR-stamp/FastCDR-download.rule
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastCDR-prefix/src/FastCDR-stamp/FastCDR-install.rule
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastCDR-prefix/src/FastCDR-stamp/FastCDR-mkdir.rule
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastCDR-prefix/src/FastCDR-stamp/FastCDR-patch_disconnected.rule
+/home/ianngulube/Documents/Code/cpp/Experimental_2/DistributedATS/build/FastCDR-prefix/src/FastCDR-stamp/FastCDR-update_disconnected.rule
