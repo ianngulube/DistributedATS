@@ -50,7 +50,7 @@ export class OrderMan {
 
     this.order_state[order_id] = order_state;
 
-    if ( order_state['last_qty'] != 0)
+    if ( order_state['last_qty'] !== 0)
     {
       this.position_mananger.insert_trade(instrument['instrumentName'], order_state['side'], parseInt(order_state['last_px']), parseInt(order_state['last_qty']))
       positions[instrument['instrumentName']] = {

@@ -103,13 +103,13 @@ export class DataMan {
     const entry_size = market_data_entry['271'];
     if ( entry_type === '0' )  // bid
     {
-      if (market_data_snapshot['bids'] == undefined)
+      if (market_data_snapshot['bids'] === undefined)
         market_data_snapshot['bids'] = []
 
       market_data_snapshot['bids'].push({'price':entry_px, 'size':entry_size});
     } else if ( entry_type === '1' ) // ask
     {
-      if (market_data_snapshot['asks'] == undefined)
+      if (market_data_snapshot['asks'] === undefined)
         market_data_snapshot['asks'] = []
 
       market_data_snapshot['asks'].push({'price':entry_px, 'size':entry_size});
@@ -141,13 +141,13 @@ export class DataMan {
 
     if ( entry_type === '0' )  // bid
     {
-      if (market_data_snapshot[instrumentName]['bids'] == undefined)
+      if (market_data_snapshot[instrumentName]['bids'] === undefined)
         market_data_snapshot[instrumentName]['bids'] = []
 
       market_data_snapshot[instrumentName]['bids'].push({'price':entry_px, 'size':entry_size});
     } else if ( entry_type === '1' ) // ask
     {
-      if (market_data_snapshot[instrumentName]['asks'] == undefined)
+      if (market_data_snapshot[instrumentName]['asks'] === undefined)
         market_data_snapshot[instrumentName]['asks'] = []
 
       market_data_snapshot[instrumentName]['asks'].push({'price':entry_px, 'size':entry_size});
@@ -165,7 +165,7 @@ export class DataMan {
 
   getPositionsAndMarketData()
   {
-      if ( Object.keys(this.instruments).length == 0 || Object.keys(this.market_data).length == 0 )
+      if ( Object.keys(this.instruments).length === 0 || Object.keys(this.market_data).length === 0 )
         return undefined;
 
       let position_and_market_data = {};
@@ -182,7 +182,7 @@ export class DataMan {
           instrument['priceChange'] = instrument['lastTradedPrice'] - instrument['openPrice']
 
           // top level
-          if ( market_data['bids'] != undefined )
+          if ( market_data['bids'] !== undefined )
           {
             instrument['bidSide'] = market_data['bids'];
             instrument['top_level_bid_price'] = parseInt(instrument['bidSide'][0]['price'])
@@ -191,7 +191,7 @@ export class DataMan {
             instrument['bidSide'] = [];
           }
 
-          if (  market_data['asks'] != undefined )
+          if (  market_data['asks'] !== undefined )
           {
             instrument['askSide'] = market_data['asks'];
             instrument['top_level_ask_price'] = parseInt(instrument['askSide'][0]['price'])

@@ -1,19 +1,17 @@
 // DistributedATS - Mike Kipnis (c) 2022
-import { useCallback, useMemo, useEffect, useState } from 'react';
+import { useRef, useImperativeHandle } from 'react';
 import React from 'react';
-import {AgGridColumn, AgGridReact} from 'ag-grid-react';
+import {AgGridReact} from 'ag-grid-react';
 import Helpers from './Helpers';
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham-dark.css';
 
 import { ORDER_STATUS_MAP,
-        ORDER_TYPE_FIX_MAP,
         FIX_ORDER_CONDITION_MAP,
         FIX_ORDER_TYPE_MAP,
         FIX_ORDER_SIDE_MAP } from '../websocket_fix_utils/FIXConvertUtils';
 
-const { forwardRef, useRef, useImperativeHandle } = React;
 
 const History = React.forwardRef ((props, ref) => {
 
@@ -48,8 +46,6 @@ const History = React.forwardRef ((props, ref) => {
   );
 };
 
-  const [histData, setHistData] = useState({});
-
   const gridRef = useRef();
 
   useImperativeHandle(ref, () => ({
@@ -63,7 +59,7 @@ const History = React.forwardRef ((props, ref) => {
 
   function price_formatter(params)
   {
-           if (params.value == 0 )
+           if (params.value === 0 )
            {
              return "";
            } else {
@@ -73,12 +69,12 @@ const History = React.forwardRef ((props, ref) => {
 
   function size_formatter(params)
   {
-    if (params.value == null || isNaN(Number(params.value)) || Number(params.value) === 0) {
+    if (params.value === null || isNaN(Number(params.value)) || Number(params.value) === 0) {
       return "";
     }
   };
 
-const [columnDefs, setColumnDefs] = useState([
+const columnDefs = [
    { headerName: 'Timestamp', field: 'lastUpdateTime', sortable: true,flex: 0, filter: 'agTextColumnFilter', },
    { headerName: 'Last.ExecReportID', field: 'lastExecutionReportId', sortable: true, flex: 2, filter: 'agTextColumnFilter',  width:100},
    { headerName: 'OrderId', field: 'order_id', sortable: true, flex: 0, width:175 },
@@ -116,7 +112,7 @@ const [columnDefs, setColumnDefs] = useState([
         headerName: 'Actions',
         field: 'value',
         cellRenderer: params => {
-          if ( params.data.orderStatus == '0' || params.data.orderStatus == '1')
+          if ( params.data.orderStatus === '0' || params.data.orderStatus === '1')
             return HistMessageRenderer(params.data);
           else
             return null;
@@ -125,7 +121,7 @@ const [columnDefs, setColumnDefs] = useState([
         editable: false,
         minWidth: 150,
       },
- ]);
+ ];
 
  const gridOptions = {
 
@@ -140,11 +136,6 @@ const [columnDefs, setColumnDefs] = useState([
 
  }
 
-
- const onBtnExport = useCallback(() => {
-
-   props.dataExportCallback(gridRef);
- }, []);
 
   return (
       <div>

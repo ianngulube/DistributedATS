@@ -14,16 +14,16 @@ const helpers = {
       var price_str = d_handle.toString() + "-" + f_handle.toString().padStart(2,'0') + fraction_2.toString();
 
 
-      return (is_negative == true ? "(" + price_str + ")" : price_str );
+      return (is_negative === true ? "(" + price_str + ")" : price_str );
     },
 
     get_display_price: function(price, tick_size)
     {
-      if (tick_size ==  256 )
+      if (tick_size === 256 )
       {
          return helpers.dec_to_tic(price/tick_size);
       } else {
-        if ( price != null )
+        if ( price !== null )
         {
          return parseFloat(price/tick_size).toFixed(2);
         }
@@ -38,13 +38,13 @@ const helpers = {
       {
         var level = {"bidPrice":0,"askPrice":0,"bidSize":0,"askSize":0};
 
-        if (instrument_data.bidSide[i]!=null)
-        {
-          level["bidPrice"] = instrument_data.bidSide[i].price;
-          level["bidSize"] = instrument_data.bidSide[i].size;
-        }
+if (instrument_data.bidSide[i] !== null)
+    {
+      level["bidPrice"] = instrument_data.bidSide[i].price;
+      level["bidSize"] = instrument_data.bidSide[i].size;
+    }
 
-        if (instrument_data.askSide[i]!=null)
+    if (instrument_data.askSide[i] !== null)
         {
           level["askPrice"] = instrument_data.askSide[i].price;
           level["askSize"] = instrument_data.askSide[i].size;

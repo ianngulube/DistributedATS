@@ -1,26 +1,23 @@
 // DistributedATS - Mike Kipnis (c) 2022
 
-import { useCallback, useMemo, useEffect, useState } from 'react';
-import React from 'react';
-import {AgGridColumn, AgGridReact} from 'ag-grid-react';
+import React, { useEffect, useState, useRef, useImperativeHandle } from 'react';
+import {AgGridReact} from 'ag-grid-react';
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham-dark.css';
 
 import Helpers from './Helpers';
 
-const { forwardRef, useRef, useImperativeHandle } = React;
 
 const Blotter = React.forwardRef ((props, ref) => {
 
-  const [ticketData, setTicketData] = useState({});
   const [blotterData, setBlotterData] = useState([]);
 
   const gridRef = useRef();
 
   function price_formatter(params)
   {
-           if (params.value == null || isNaN(Number(params.value)) || Number(params.value) === 0)
+           if (params.value === null || isNaN(Number(params.value)) || Number(params.value) === 0)
            {
              return "";
            } else {
@@ -32,7 +29,7 @@ const Blotter = React.forwardRef ((props, ref) => {
 
   function size_formatter(params)
   {
-    if (params.value == null || isNaN(Number(params.value)) || Number(params.value) === 0) {
+    if (params.value === null || isNaN(Number(params.value)) || Number(params.value) === 0) {
       return "";
     }
   };
@@ -42,20 +39,15 @@ const Blotter = React.forwardRef ((props, ref) => {
 
           gridRef.current.api.forEachNode(node =>
           {
-            if (node.data == null )
+            if (node.data === null )
               return;
 
-            var instrument_name = node.data.instrumentName;
-            var last_market_data_sequence_number = node.data.marketDataSequenceNumber;
+            const instrument_name = node.data.instrumentName;
+            const instrument_update = props.blotterData[instrument_name];
 
-            var instrument_update = props.blotterData[instrument_name];
-
-            if ( instrument_update!== undefined && instrument_update!== null )
+            if ( instrument_update !== undefined && instrument_update !== null )
             {
-                //if ( instrument_update.marketDataSequenceNumber > last_market_data_sequence_number )
-                {
-                  node.setData(instrument_update);
-                }
+                node.setData(instrument_update);
             }
 
 
@@ -71,7 +63,7 @@ const Blotter = React.forwardRef ((props, ref) => {
   }));
 
 
-const [columnDefs, setColumnDefs] = useState([
+const columnDefs = [
    { headerName: 'symbol', field: 'symbol', filter: 'agTextColumnFilter', cellStyle: {'textAlign': 'left'}, sortable: true, },
    { headerName: 'Position', field: 'position', flex: 2, valueFormatter:size_formatter, filter: 'agTextColumnFilter',  },
    { headerName: 'VWAP', field: 'vwap', sortable: true, flex: 2,valueFormatter:price_formatter },
@@ -88,46 +80,34 @@ const [columnDefs, setColumnDefs] = useState([
    { headerName: 'TickSize', field: 'tickSize', sortable: true, flex: 2, hide:true },
 
 
- ]);
+  ];
 
- const gridOptions =
-      {
-      rowSelection: 'single',
-      onRowClicked: event => {
-      props.selectedInstrument(event.data.instrumentName);
-     },
+  const gridOptions = {
+        rowSelection: 'single',
+        onRowClicked: event => {
+          props.selectedInstrument(event.data.instrumentName);
+        },
+        onColumnResized: event => {},
+        onRowDataChanged: event => {
+          var defaultSortModel = [
+            {  colId: 'maturityDate', sort: 'asc', sortIndex: 0 }
+          ];
+          gridRef.current.columnApi.applyColumnState({ state: defaultSortModel });
+        },
+        getRowHeight: (params) => 25
+  };
 
-     onColumnResized: event => {},
-
-     onRowDataChanged: event => {
-      var defaultSortModel = [
-        {  colId: 'maturityDate', sort: 'asc', sortIndex: 0 }
-      ];
-      gridRef.current.columnApi.applyColumnState({ state: defaultSortModel });
-    },
-
-     getRowHeight: (params) => 25
- }
-
- useEffect(() => {
-
-  console.log("Blotter Data : ", blotterData);
-
-}, [blotterData]);
-
+  useEffect(() => {
+    console.log("Blotter Data : ", blotterData);
+  }, [blotterData]);
 
   /*
-useEffect(() => {
+  useEffect(() => {
 
-  props.marketDataCallback(ticketData);
+    props.marketDataCallback(ticketData);
 
   }, [ticketData]);
-*/
-
- const onBtnExport = useCallback(() => {
-
-   props.dataExportCallback(gridRef);
- }, []);
+  */
 
   return (
        <div className="ag-theme-balham-dark" style={{height:"40vh", width: "95%", display: "inline-block", margin: "auto"}}>

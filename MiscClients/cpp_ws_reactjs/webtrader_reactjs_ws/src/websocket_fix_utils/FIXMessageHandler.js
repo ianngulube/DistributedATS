@@ -68,11 +68,6 @@ export class FIXMessageHandler {
     console.log("➡️ Sent Market Data Request");
   }
 
-  sendHeartbeat(client) {
-    const msg = this.composeHeader("0");
-    client.sendJSON(msg);
-  }
-
   sendLogout(client) {
     const msg = this.composeHeader("5");
     client.sendJSON(msg);

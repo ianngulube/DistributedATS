@@ -1,23 +1,17 @@
 // DistributedATS - Mike Kipnis (c) 2022
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { Container, Row, Col, Button, Form } from 'react-bootstrap/';
+import { Row, Col } from 'react-bootstrap/';
 import PriceLevels from './PriceLevels';
 import Helpers from './Helpers';
 import { ORDER_TYPE_FIX_MAP, ORDER_CONDITION_FIX_MAP } from '../websocket_fix_utils/FIXConvertUtils';
 
-const { forwardRef, useRef, useImperativeHandle } = React;
-
 
 const Ticket = React.forwardRef ((props, ref) => {
 
-  const [qty, setQty] = useState(1);
   const [orderType, setOrderType] = useState('Limit');
   const [allOrNone, setAllOrNone] = useState(false);
   const [orderCondition, setOrderCondition] = useState('Day');
-  const [size, setSize] = useState(null);
-  const [orderSubmitResults, setOrderSubmitResults] = useState({});
-  const [cancelAllResults, setCancelAllResults] = useState({});
   const [isTicketing, setIsTicketing] = useState(false);
 
   const [lastTicket, setLastTicket] = useState();
@@ -42,11 +36,7 @@ const Ticket = React.forwardRef ((props, ref) => {
 
   const Submit_order = ( side ) =>
   {
-    var ticket = {};
-
     setIsTicketing(true);
-
-      const now = new Date();
 
       const instrument_data = props.selectedInstrumentBlotterData;
       const order_id = Helpers.get_order_id(instrument_data)
@@ -66,7 +56,7 @@ const Ticket = React.forwardRef ((props, ref) => {
         '60': Helpers.get_fix_formatted_timestamp()
       };
 
-    if (allOrNone == true )
+    if (allOrNone)
       msg.Body['18'] = 'G'
 
     if ( orderTypeCode === 3 )
@@ -100,7 +90,7 @@ const Ticket = React.forwardRef ((props, ref) => {
       let quantity = 0;
 
       let last_trade_price = props.selectedInstrumentBlotterData['lastTradedPrice']
-      if ( last_trade_price == undefined )
+      if ( last_trade_price === undefined )
         last_trade_price = props.selectedInstrumentBlotterData['openPrice']
 
       const ticket_size = props.selectedInstrumentBlotterData['tickSize']
@@ -109,11 +99,11 @@ const Ticket = React.forwardRef ((props, ref) => {
       {
         price = last_trade_price/ticket_size;
         quantity = 1;
-      } else if ( props.selectedInstrumentBlotterData['top_level_bid_price'] != 0 )
+      } else if ( props.selectedInstrumentBlotterData['top_level_bid_price'] !== 0 )
       {
-        price = props.selectedInstrumentBlotterData ['top_level_bid_price']/ticket_size;
+        price = props.selectedInstrumentBlotterData['top_level_bid_price']/ticket_size;
         quantity = props.selectedInstrumentBlotterData['top_level_bid_size'];
-      } else if ( props.selectedInstrumentBlotterData['top_level_ask_price'] != 0 )
+      } else if ( props.selectedInstrumentBlotterData['top_level_ask_price'] !== 0 )
       {
         price = props.selectedInstrumentBlotterData['top_level_ask_price']/ticket_size;
         quantity = props.selectedInstrumentBlotterData['top_level_ask_price'];
@@ -126,7 +116,7 @@ const Ticket = React.forwardRef ((props, ref) => {
 
       if ( lastExecReport !== undefined && lastTicket !== undefined )
       {
-        if ( lastTicket['Body']['11'] == lastExecReport['Body']['37'] )
+        if ( lastTicket['Body']['11'] === lastExecReport['Body']['37'] )
         {
           setIsTicketing(false);
         }
@@ -142,19 +132,9 @@ const Ticket = React.forwardRef ((props, ref) => {
 
   }, [props.selectedInstrumentBlotterData, lastTicket]);
 
-  useEffect(() => {
-    setIsTicketing(false);
-    console.log("Order Submit Results : " + orderSubmitResults );
-  },[orderSubmitResults]);
-
-  useEffect(() => {
-    setIsTicketing(false);
-    console.log("Cancel All Results : " + cancelAllResults );;
-  },[cancelAllResults]);
-
 
   return (
-    <Row style={( props.selectedInstrumentBlotterData == undefined ) ? {pointerEvents: "none", opacity: "0.4"} : {}}>
+    <Row style={( props.selectedInstrumentBlotterData === undefined ) ? {pointerEvents: "none", opacity: "0.4"} : {}}>
        <Row style={{marginTop: '10px'}}>
           <Col>
             <h6>Trade : {props.instrumentName}</h6>
@@ -164,7 +144,7 @@ const Ticket = React.forwardRef ((props, ref) => {
           <PriceLevels selectedInstrumentBlotterData={props.selectedInstrumentBlotterData} ref={priceLevelsRef}/>
        </Row>
        <Row style={{marginTop: '10px'}}>
-       <div style={ ( isTicketing == true ) ? {pointerEvents: "none", opacity: "0.4"} : {}}>
+       <div style={ ( isTicketing === true ) ? {pointerEvents: "none", opacity: "0.4"} : {}}>
           <form>
             <h6>
             <Row>
@@ -173,7 +153,7 @@ const Ticket = React.forwardRef ((props, ref) => {
             </Row>
             <Row>
               <Col>
-                <div style={ ( orderType == "Market" || orderType == "Stop") ? {pointerEvents: "none", opacity: "0.4"} : {}}>
+                <div style={ ( orderType === "Market" || orderType === "Stop") ? {pointerEvents: "none", opacity: "0.4"} : {}}>
                 <input
                   type="number"
                   step={0.01}
@@ -228,7 +208,7 @@ const Ticket = React.forwardRef ((props, ref) => {
             </Row>
             <Row>
             <Col>
-              <div style={ ( orderType != "Stop" ) ? {pointerEvents: "none", opacity: "0.4"} : {}}>
+              <div style={ ( orderType !== "Stop" ) ? {pointerEvents: "none", opacity: "0.4"} : {}}>
               <input
   type="number"
   step={0.01}

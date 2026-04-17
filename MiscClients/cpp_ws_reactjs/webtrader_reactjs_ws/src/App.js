@@ -39,7 +39,6 @@ function App() {
 
   const [blotterData, setBlotterData] = useState();
   const [selectedInstrument, setSelectedInstrument] = useState();
-  const [lastExecReport, setLastExecReport] = useState();
   const [selectedInstrumentBlotterData, setSelectedInstrumentBlotterData] =
     useState();
 
@@ -158,10 +157,6 @@ function App() {
     if (selectedInstrument) {
       setSelectedInstrumentBlotterData({
         ...blotterData[selectedInstrument],
-      });
-
-      setLastExecReport({
-        ...blotterData["last_exec_report"],
       });
     }
 
