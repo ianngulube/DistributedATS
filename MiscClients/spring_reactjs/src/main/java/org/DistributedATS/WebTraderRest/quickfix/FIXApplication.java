@@ -159,11 +159,16 @@ public class FIXApplication implements ApplicationExtended {
 
         quick_fix_runnable_bean.executionReportProcessorThread.enqueueExecutionReport(
             fixedMessageBlock);
+      } else {
+        // Gracefully ignore unhandled message types (e.g., TradingSessionStatus, SecurityTypeResponse)
+        System.out.println("[DEBUG] Received unhandled FIX message type: " + msgType.getValue() + 
+                          " from sessionID: " + sessionID);
       }
 
     } catch (FieldNotFound e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      // Log field parsing errors without crashing the session
+      System.err.println("[ERROR] FieldNotFound in fromApp - MsgType may be unsupported: " + e.getMessage());
+      // Don't re-throw; allow session to continue
     } /*catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
