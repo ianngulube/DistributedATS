@@ -161,11 +161,10 @@ class SessionStateWrapper
             position_data.buy_amt * position_data.buy_avg_price;
           }
         }
+        active_instruments[active_instrument.instrumentName] = market_data_entry;
+      } else {
+        console.log("[DEBUG SessionStateWrapper] Missing market data for:", active_instrument.instrumentName, "|", active_instrument.symbol);
       }
-      active_instruments[active_instrument.instrumentName] = market_data_entry;
-    } else {
-      console.log("[DEBUG SessionStateWrapper] Missing market data for:", active_instrument.instrumentName, "|", active_instrument.symbol);
-    }
     }
 
     console.log("[DEBUG SessionStateWrapper] Populated", Object.keys(active_instruments).length, "instruments out of", this.session_state.activeSecurityList.length);
