@@ -102,7 +102,17 @@ class SessionStateWrapper
     var active_instruments = {};
 
     if ( this.session_state.activeSecurityList == null || this.session_state.activeSecurityList.length == 0 )
+    {
+      console.log("[DEBUG SessionStateWrapper] No active securities.", {
+        activeSecurityList: this.session_state.activeSecurityList,
+        isNull: this.session_state.activeSecurityList === null,
+        isEmpty: this.session_state.activeSecurityList?.length === 0,
+      });
       return active_instruments;
+    }
+
+    console.log("[DEBUG SessionStateWrapper] Processing", this.session_state.activeSecurityList.length, "active securities");
+    console.log("[DEBUG SessionStateWrapper] Available instrument snapshots:", Object.keys(this.session_state.instrumentMarketDataSnapshot || {}).join(", "));
 
     for (const [index, active_instrument] of Object.entries(this.session_state.activeSecurityList))
     {
@@ -152,10 +162,13 @@ class SessionStateWrapper
           }
         }
       }
-
       active_instruments[active_instrument.instrumentName] = market_data_entry;
-
+    } else {
+      console.log("[DEBUG SessionStateWrapper] Missing market data for:", active_instrument.instrumentName, "|", active_instrument.symbol);
     }
+    }
+
+    console.log("[DEBUG SessionStateWrapper] Populated", Object.keys(active_instruments).length, "instruments out of", this.session_state.activeSecurityList.length);
 
     return active_instruments;
   }

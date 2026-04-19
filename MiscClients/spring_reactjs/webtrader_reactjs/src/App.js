@@ -45,15 +45,18 @@ function App()
 
   const Logon_callback = (logon_value) =>
   {
+    console.log("[DEBUG] Sending login request to", url + '/Login', "with", logon_value);
     const requestOptionsResults = { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(logon_value) };
     fetch(url + '/Login', requestOptionsResults) .then(res => res.json())
-    .then(result => setSessionToken(result))
+    .then(result => {
+      console.log("[DEBUG] Login response received:", result);
+      setSessionToken(result);
+    })
     .catch(err => {
-
+      console.error("[DEBUG] Login error:", err);
         var invalid_state = {};
         invalid_state["text"] = 'Unable to connect to the server';
         setLoginState(invalid_state);
-
       });
   }
 
@@ -143,6 +146,14 @@ function App()
 
     if ( sessionState !== null  )
     {
+      console.log("[DEBUG] Session State received:", {
+        sessionState: sessionState.sessionState,
+        activeSecurityListLength: sessionState.activeSecurityList?.length || 0,
+        activeSecurityList: sessionState.activeSecurityList,
+        instrumentMarketDataSnapshotKeys: Object.keys(sessionState.instrumentMarketDataSnapshot || {}).length,
+        positionsMapKeys: Object.keys(sessionState.positionsMap || {}).length,
+      });
+
       last_session_state.current = sessionState;
 
       const token = sessionToken?.token ?? sessionToken?.Token;
@@ -155,6 +166,7 @@ function App()
         if ( sessionState.sessionState == 1 ) // This session is active
         {
           var blotter_data = session_state_wrapper.get_market_data_and_positions();
+          console.log("[DEBUG] Blotter data populated:", Object.keys(blotter_data).length, "instruments", blotter_data);
 
           setBlotterData(blotter_data);
 
@@ -178,10 +190,15 @@ function App()
       if ( sessionState.sessionState != 3 )
       {
         const intervalId = setInterval(() => {
+                console.log("[DEBUG] Polling SessionState endpoint with request:", session_state_request);
                 const requestOptionsResults = { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(session_state_request) };
                 fetch(url + '/SessionState', requestOptionsResults) .then(res => res.json())
-                .then(result => setSessionState(result))
+                .then(result => {
+                  console.log("[DEBUG] SessionState polling response:", result);
+                  setSessionState(result);
+                })
                 .catch(err => {
+                  console.error("[DEBUG] SessionState polling error:", err);
                   var invalid_state = {};
                   invalid_state["text"] = 'Disconnected from the server';
                   setLoginState(invalid_state);
@@ -208,6 +225,11 @@ function App()
         <Login loginState={loginState} logonCallback={Logon_callback} sessionState={sessionState}/>
       </nav>
       <Container fluid style={{marginTop:20}}>
+      {sessionState && sessionState.sessionState == 1 && (!sessionState.activeSecurityList || sessionState.activeSecurityList.length === 0) && (
+        <div style={{ padding: '10px', backgroundColor: '#fff3cd', borderRadius: '4px', marginBottom: '10px' }}>
+          <strong>No instruments available.</strong> The server returned an empty security list. Check that the DataService is running and returning securities.
+        </div>
+      )}
       <div style={( sessionState == null || sessionState.sessionState != 1 || sessionState.activeSecurityList == null ) ? {pointerEvents: "none", opacity: "0.4"} : {}}>
         <Row>
         <Col  sm={8}>
@@ -215,7 +237,7 @@ function App()
             <PositionsAndMarketData blotterData={blotterData} ticketState={ticketState} marketDataCallback={Populate_ticket} ref={marketDataAndPositionsRef}/>
           </div>
           <div>
-            Click on the instrument to trade.
+            {blotterData && Object.keys(blotterData).length > 0 ? "Click on the instrument to trade." : "(Waiting for instruments...)}"}
           </div>
         </Col>
         <Col  sm={4}>
