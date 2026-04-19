@@ -25,7 +25,7 @@ function App()
   const histRef = React.useRef();
   const marketDataAndPositionsRef = React.useRef();
 
-  const url = window.location.href;
+  const url = window.location.origin;
   //const url = 'http://localhost:8080';
 
   const last_sequence_number = useRef(0); // sequence number between front-end and rest controller
@@ -108,29 +108,31 @@ function App()
 
     if ( sessionToken !== null )
     {
-        console.log("sessionToken : " + sessionToken.token);
+        const token = sessionToken?.token ?? sessionToken?.Token;
+        const username = sessionToken?.username ?? sessionToken?.Username ?? sessionToken?.user ?? sessionToken?.User ?? '';
 
-        var session_state_request = {};
-        session_state_request["token"] = sessionToken.Token;
-        session_state_request["stateMask"] = 0;
-        session_state_request["maxOrderSequenceNumber"] = 0;
-        session_state_request["marketDataSequenceNumber"] = 0;
+        console.log("sessionToken : " + token);
 
-        ticketState.username = sessionToken.username;
-        ticketState.token =  sessionToken.Token;;
+        if (!token) {
+          setLoginState({ sessionStateCode: -1, text: 'Invalid login response from the server' });
+          return;
+        }
 
-        var instrument = {};
+        const session_state_request = {
+          token,
+          stateMask: 0,
+          maxOrderSequenceNumber: 0,
+          marketDataSequenceNumber: 0,
+          activeSecurityList: [],
+        };
 
-        var instrument_array = [];
-        session_state_request["activeSecurityList"] = instrument_array;
+        setTicketState(prev => ({ ...prev, username, token }));
 
         const requestOptionsResults = { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(session_state_request) };
         fetch(url + '/SessionState', requestOptionsResults) .then(res => res.json())
         .then(result => setSessionState(result))
         .catch(err => {
-          var invalid_state = {};
-          invalid_state["text"] = 'Disconnected from the server';
-          setLoginState(invalid_state);
+          setLoginState({ sessionStateCode: -1, text: 'Disconnected from the server' });
           setSessionState(null);
         });
     }
@@ -143,13 +145,12 @@ function App()
     {
       last_session_state.current = sessionState;
 
-      var session_state_request = {};
-      session_state_request["token"] = sessionToken.Token;
+      const token = sessionToken?.token ?? sessionToken?.Token;
+      const session_state_request = { token };
 
+      const session_state_wrapper = new SessionStateWrapper(sessionState, session_state_request);
 
-        const session_state_wrapper = new SessionStateWrapper(sessionState, session_state_request);
-
-        setLoginState(session_state_wrapper.get_logon_state());
+      setLoginState({ ...session_state_wrapper.get_logon_state(), sessionStateCode: sessionState.sessionState });
 
         if ( sessionState.sessionState == 1 ) // This session is active
         {
